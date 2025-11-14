@@ -1,0 +1,51 @@
+name: CI/CD PWA
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Instalar Dependências (API & Web)
+      run: |
+        cd apps/api && npm ci
+        cd ../../apps/web && npm ci
+
+    - name: Build Frontend
+      run: cd apps/web && npm run build
+
+    - name: Instalar Playwright
+      run: npx playwright install --with-deps
+
+    - name: Rodar Testes E2E
+      run: |
+        # Inicia API em background
+        cd apps/api && npm start &
+        # Inicia Web (Preview) em background na porta 8081
+        cd apps/web && npm run preview -- --port 8081 &
+        # Aguarda serviços subirem
+        sleep 10
+        # Roda teste
+        cd apps/web && npx playwright test tests/app.spec.js
+
+    - name: Upload Artifacts (Opcional)
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-report
+        path: apps/web/playwright-report/
+
+    - name: Deploy para GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: apps/web/dist

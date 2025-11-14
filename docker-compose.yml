@@ -1,0 +1,25 @@
+services:
+  api:
+    build: ./apps/api
+    container_name: multiverse-api
+    ports:
+      - "3000:3000"
+    networks:
+      - pwa-net
+
+  web:
+    build: ./apps/web
+    container_name: multiverse-web
+    ports:
+      - "8081:80"
+    depends_on:
+      - api
+    environment:
+      # O browser do usuário acessa a API via localhost na máquina dele
+      - VITE_API_URL=http://localhost:3000
+    networks:
+      - pwa-net
+
+networks:
+  pwa-net:
+    driver: bridge
