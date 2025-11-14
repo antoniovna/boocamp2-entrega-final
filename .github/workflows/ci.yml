@@ -18,8 +18,8 @@ jobs:
 
     - name: Instalar Dependências (API & Web)
       run: |
-        cd apps/api && npm ci
-        cd ../../apps/web && npm ci
+        cd apps/api && npm install
+        cd ../../apps/web && npm install
 
     - name: Build Frontend
       run: cd apps/web && npm run build
