@@ -4,8 +4,9 @@ import Details from './pages/Details';
 import './index.css';
 
 function App() {
+  const basename = import.meta.env.DEV ? '/' : '/boocamp2-entrega-final';
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/character/:id" element={<Details />} />
