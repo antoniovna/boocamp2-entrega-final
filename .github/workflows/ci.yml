@@ -31,8 +31,8 @@ jobs:
       run: |
         # Inicia API em background
         cd apps/api && npm start &
-        # Inicia Web (Preview) em background na porta 8081
-        cd apps/web && npm run preview -- --port 8081 &
+        # Inicia Web (Preview) em background na porta 8080
+        cd apps/web && npm run preview -- --port 8080 &
         # Aguarda serviços subirem
         sleep 10
         # Roda teste
