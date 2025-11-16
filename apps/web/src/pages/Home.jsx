@@ -59,8 +59,13 @@ function Home() {
       <div className="grid">
         {chars.length > 0 ? (
           chars.map(char => (
-            // Link envolve o Card para levar aos detalhes
-            <Link to={`/character/${char.id}`} key={char.id} className="card-link">
+            // ADICIONE O data-testid AQUI
+            <Link 
+              to={`/character/${char.id}`} 
+              key={char.id} 
+              className="card-link"
+              data-testid="char-card"  // <-- ESSA É A CORREÇÃO
+            >
               <div className="card">
                 <img src={char.image} alt={char.name} loading="lazy" />
                 <div className="card-info">
