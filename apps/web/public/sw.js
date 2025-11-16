@@ -1,19 +1,17 @@
-const CACHE_NAME = 'multiverse-cache-v1';
-// Arquivos essenciais para o "Shell" do App
+const CACHE_NAME = 'multiverse-cache-v2'; 
+
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.webmanifest'
+  '/boocamp2-entrega-final/',
+  '/boocamp2-entrega-final/index.html',
+  '/boocamp2-entrega-final/manifest.webmanifest'
 ];
 
-// Instalação: Cacheia o estático
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
   );
 });
 
-// Ativação: Limpa caches antigos (opcional, mas recomendado)
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => Promise.all(
