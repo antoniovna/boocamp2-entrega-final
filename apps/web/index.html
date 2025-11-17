@@ -14,16 +14,20 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
+    
+<script type="module">
+       // O Vite injeta o valor correto aqui automaticamente
+       const baseUrl = import.meta.env.BASE_URL;
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/boocamp2-entrega-final/sw.js')
-          .then(reg => console.log('SW registrado:', reg.scope))
-          .catch(err => console.log('SW falhou:', err));
-      });
-    }
-  </script>
+       if ('serviceWorker' in navigator) {
+         window.addEventListener('load', () => {
+           // Registra o SW usando a base correta
+           navigator.serviceWorker.register(`${baseUrl}sw.js`)
+             .then(reg => console.log('SW registrado'))
+             .catch(err => console.log('SW falhou', err));
+         });
+       }
+    </script>
 </body>
 
 </html>
