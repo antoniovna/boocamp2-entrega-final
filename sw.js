@@ -1,14 +1,15 @@
-const CACHE_NAME = 'multiverse-cache-v2'; 
+const CACHE_NAME = 'multiverse-cache-v4'; // Subi a versão para limpar o cache velho
 
 const STATIC_ASSETS = [
-  '/boocamp2-entrega-final/',
-  '/boocamp2-entrega-final/index.html',
-  '/boocamp2-entrega-final/manifest.webmanifest'
+  './',                  // Relativo: index.html da pasta atual
+  './index.html',
+  './manifest.webmanifest'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(STATIC_ASSETS))
   );
 });
 
